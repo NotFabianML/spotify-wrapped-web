@@ -1,0 +1,24 @@
+---
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout title="View your spotify stats">
+  <main>
+    <div>Iniciar sesion</div>
+    <button id="login">Iniciar sesion</button>
+    <button id="logout">Cerrar sesion</button>
+  </main>
+</Layout>
+
+<script>
+    import { $ } from '@/lib/dom-selector'
+    const { signIn, signOut } = await import("auth-astro/client")
+
+    const $login = $('#login')
+    const $logout = $('#logout')
+
+    $login.onclick = () => signIn()
+    $logout.onclick = () => signOut()
+    
+  </script>
+

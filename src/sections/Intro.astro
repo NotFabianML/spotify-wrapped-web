@@ -14,14 +14,22 @@ import Typography from "@/components/Typography.astro";
     </Typography>
   </div>
 
-  <div class="flex flex-row justify-center items-center h-[70vh] sm:h-screen px-8 text-sm sm:text-lg">
+  <div
+    class="flex flex-col justify-center items-center h-[70vh] sm:h-screen px-8 text-sm sm:text-lg"
+  >
     <p class="text-center text-white">
       Spotify Wrapped gives you stats about your top artists and songs. <br /> To
       use it, you'll need to login with your Spotify account.
     </p>
+
+    <div>Iniciar sesion</div>
+    <button id="login" class="bg-white hover:opacity-35">Iniciar sesion</button>
+    <button id="logout" class="bg-white hover:opacity-35">Cerrar sesion</button>
   </div>
 
-  <div class="flex justify-center flex-col sm:absolute sm:bottom-0 sm:right-0 p-8">
+  <div
+    class="flex justify-center flex-col sm:absolute sm:bottom-0 sm:right-0 p-8"
+  >
     <Typography
       as="h2"
       variant="big"
@@ -33,8 +41,13 @@ import Typography from "@/components/Typography.astro";
   </div>
 </section>
 
-<style>
-    .title {
+<script>
+  import { $ } from "@/lib/dom-selector";
+  const { signIn, signOut } = await import("auth-astro/client");
 
-    }
-</style>
+  const $login = $("#login");
+  const $logout = $("#logout");
+
+  $login.onclick = () => signIn();
+  $logout.onclick = () => signOut();
+</script>
