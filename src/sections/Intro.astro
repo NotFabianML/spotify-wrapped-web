@@ -1,5 +1,11 @@
 ---
 import Typography from "@/components/Typography.astro";
+import { SignIn, SignOut } from "auth-astro/components";
+
+import { getSession } from "auth-astro/server";
+
+const session = await getSession(Astro.request);
+console.log(session);
 ---
 
 <section class="h-full flex flex-col justify-center items-center">
@@ -21,10 +27,17 @@ import Typography from "@/components/Typography.astro";
       Spotify Wrapped gives you stats about your top artists and songs. <br /> To
       use it, you'll need to login with your Spotify account.
     </p>
-
+    {
+      session ? (
+        <p class="text-5xl text-white">Hola , {session.user?.name}!</p>
+        <SignOut class:list={'bg-white hover:opacity-35'}>Cerrar sesion</SignOut>
+      ) : (
+        <SignIn class:list={'bg-white hover:opacity-35 uppercase'} provider="spotify"> Iniciar con spotify </SignIn>
+      )
+    }
     <div>Iniciar sesion</div>
-    <button id="login" class="bg-white hover:opacity-35">Iniciar sesion</button>
-    <button id="logout" class="bg-white hover:opacity-35">Cerrar sesion</button>
+    <!-- <button id="login" class="bg-white hover:opacity-35">Iniciar sesion</button>
+    <button id="logout" class="bg-white hover:opacity-35">Cerrar sesion</button> -->
   </div>
 
   <div
@@ -41,7 +54,7 @@ import Typography from "@/components/Typography.astro";
   </div>
 </section>
 
-<script>
+<!-- <script>
   import { $ } from "@/lib/dom-selector";
   const { signIn, signOut } = await import("auth-astro/client");
 
@@ -50,4 +63,4 @@ import Typography from "@/components/Typography.astro";
 
   $login.onclick = () => signIn();
   $logout.onclick = () => signOut();
-</script>
+</script> -->
