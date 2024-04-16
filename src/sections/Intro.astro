@@ -5,7 +5,6 @@ import { SignIn, SignOut } from "auth-astro/components";
 import { getSession } from "auth-astro/server";
 
 const session = await getSession(Astro.request);
-console.log(session);
 ---
 
 <section class="h-full flex flex-col justify-center items-center">
@@ -36,8 +35,6 @@ console.log(session);
       )
     }
     <div>Iniciar sesion</div>
-    <!-- <button id="login" class="bg-white hover:opacity-35">Iniciar sesion</button>
-    <button id="logout" class="bg-white hover:opacity-35">Cerrar sesion</button> -->
   </div>
 
   <div
@@ -53,14 +50,3 @@ console.log(session);
     </Typography>
   </div>
 </section>
-
-<!-- <script>
-  import { $ } from "@/lib/dom-selector";
-  const { signIn, signOut } = await import("auth-astro/client");
-
-  const $login = $("#login");
-  const $logout = $("#logout");
-
-  $login.onclick = () => signIn();
-  $logout.onclick = () => signOut();
-</script> -->
