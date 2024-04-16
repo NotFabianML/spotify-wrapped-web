@@ -8,10 +8,5 @@ import auth from "auth-astro";
 export default defineConfig({
   integrations: [tailwind(), auth()],
   output: "server",
-  adapter: vercel({
-    webAnalytics: {
-      enabled: true,
-    },
-    maxDuration: 8,
-  }),
+  adapter: vercel()
 });
