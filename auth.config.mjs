@@ -10,4 +10,4 @@ export default defineConfig({
 			clientSecret: import.meta.env.SPOTIFY_CLIENT_SECRET,
 		}),
 	],
-})
+});
