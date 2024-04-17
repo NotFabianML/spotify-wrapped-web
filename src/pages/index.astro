@@ -1,10 +1,16 @@
 ---
+import { getSession } from "auth-astro/server";
+
 import Layout from '@/layouts/Layout.astro';
-import Intro from '@/sections/Intro.astro';
+import Intro from '@/components/Intro.astro';
+import Stats from '@/components/Stats.astro';
+
+const session = await getSession(Astro.request)
+console.log(session)
 ---
 
 <Layout title="Spotify Wrapped">
 	<main>
-		<Intro />
+		{session === null ? <Intro /> : <Stats user={session.user!} />}
 	</main>
 </Layout>
