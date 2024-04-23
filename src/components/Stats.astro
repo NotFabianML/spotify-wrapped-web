@@ -1,16 +1,36 @@
 ---
 import type { User } from "@auth/core/types";
+import TopArtists from "@/components/cards/TopArtists.astro"; 
+import TopTracks from "@/components/cards/TopTracks.astro"; 
+import { getToken, getTopData } from "@/pages/api/Spotify.json";
 
 interface Props {
   user: User;
 }
 
 const { user } = Astro.props as Props;
+
+const accessToken = await getToken();
+console.log("Access token: " + accessToken);
+
+// const topArtists = await getTopData("artists", accessToken);
+// console.log("Top artists: " + topArtists.items); 
 ---
 
 <section>
   <h1 class="text-white">Sesion iniciada correctamente - {user.id}</h1>
   <button id="logout" class="text-sm font-light text-yellow-300">Cerrar sesión</button>
+
+  <div class="grid auto-rows-[192px] grid-cols-3 gap-4">
+    {[...Array(7)].map((_, i) => (
+      <div
+        
+        class={`row-span-1 rounded-xl border-2 border-slate-400/10 bg-neutral-100 p-4 dark:bg-neutral-900 ${
+          i === 3 || i === 6 ? "col-span-2" : ""
+        }`}
+      ></div>
+    ))}
+  </div>
 </section>
 
 <script>
