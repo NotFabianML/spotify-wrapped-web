@@ -2,19 +2,22 @@
 
 
 export async function getToken() {
+  const result = await fetch('https://accounts.spotify.com/api/token', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': 'Basic ' + btoa(import.meta.env.SPOTIFY_CLIENT_ID + ':' + import.meta.env.SPOTIFY_CLIENT_SECRET)
+    },
+    body: 'grant_type=client_credentials'
+  });
 
-    const result = await fetch('https://accounts.spotify.com/api/token', {
-        method: 'POST',
-        headers: {
-            'Content-Type' : 'application/x-www-form-urlencoded', 
-            'Authorization' : 'Basic ' + btoa(import.meta.env.SPOTIFY_CLIENT_ID + ':' + import.meta.env.SPOTIFY_CLIENT_SECRET)
-        },
-        body: 'grant_type=client_credentials'
-    });
+  const data = await result.json();
+  console.log("Token response: ", data);
 
-    const data = await result.json();
-    return data.access_token;
+  return data;
 }
+
+
 
 
 export async function getTopData(type: string, accessToken: string) {
