@@ -11,15 +11,19 @@ interface Props {
 const { user } = Astro.props as Props;
 
 const accessToken = await getToken();
-console.log("Access token: " + accessToken);
+// const accessToken = 'BQAmAiiY2JUAw0nsVFolnm4NpK8ImQ5jy06OPoS5JOVjzGWwSw5ShKePVXVBqSZfOJuVeDTT9Orsx-hqggXpwddoz4tGVZo6LKdeZkXrAvg259ClFvZaGxF_8h7yq5prTXbkKQML-Hx2mEG4edhGoWJYS4CMVNBfqNuiuUqdIcYoa1zixyol6xNsKT_wuOZaFelKLpVyY4vfUS1V';
+console.log("Access token: " + accessToken.access_token.toString());
 
-// const topArtists = await getTopData("artists", accessToken);
-// console.log("Top artists: " + topArtists.items); 
+const topArtists = await getTopData("artists", accessToken.toString());
+console.log("Top artists: " + JSON.stringify(topArtists.items)); 
 ---
 
 <section>
   <h1 class="text-white">Sesion iniciada correctamente - {user.id}</h1>
   <button id="logout" class="text-sm font-light text-yellow-300">Cerrar sesión</button>
+  <p class="text-white my-10">
+    {topArtists.items.map(artist => artist.name).join(', ')}
+  </p>
 
   <div class="grid auto-rows-[192px] grid-cols-3 gap-4">
     {[...Array(7)].map((_, i) => (
