@@ -10,6 +10,7 @@ export default defineConfig({
       authorizeUrl: "https://accounts.spotify.com/authorize",
       tokenUrl: "https://accounts.spotify.com/api/token",
       redirectUri: "http://localhost:3000/auth/callback",
+      reponseType: "code",
     }),
   ],
   callbacks: {
