@@ -13,8 +13,7 @@ interface Props {
 const { user } = Astro.props as Props;
 
 // const accessToken = await getToken();
-const accessToken =
-  "BQCKpGPiJ-iy-g14zt_nR68VmVYaX3zRhY43szDJbdJK3RLPUyS3-FumZuLPWjJGAAi706coe1JbhBSm6meMaE9sIYXiVbvHW_RY5UWn487eh9HPugB9TY8gvw3dj1hDO8GKefEuwrNLLb8UDs1I7gxf8UamTG1IXlmeFjTg7Xgd1nim7beJXJyEKwb3He2uSCUr9vt_5LlmmdKI";
+const accessToken = "BQDYLH_f8qd09npt1joq6th1HNcmiQmqENJpxw1TtOET5GyiCvc6SEqix7UIFcDrE1LKxcykai-ItNUJZoOwF3tU4sAb-k_VI_Kpp1P7ljBEtkzeZpJia7WWvGWqckYWCNzfhFbWv5z6RpsooBFyzmi1MoRiSXonaRYf_mrXQwpvc8wNDTjKToJ021GQgl2zdOGEwz4yE3SqxIaE";
 
 const topArtists = await getTopData("artists", "5", "5", "short_term" , accessToken);
 const topTracks = await getTopData("tracks", "5", "5", "short_term" , accessToken);
