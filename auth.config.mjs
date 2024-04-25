@@ -6,11 +6,7 @@ export default defineConfig({
     Spotify({
       clientId: import.meta.env.SPOTIFY_CLIENT_ID,
       clientSecret: import.meta.env.SPOTIFY_CLIENT_SECRET,
-      scope: "user-top-read",
-      authorizeUrl: "https://accounts.spotify.com/authorize",
-      tokenUrl: "https://accounts.spotify.com/api/token",
-      redirectUri: "http://localhost:3000/auth/callback",
-      reponseType: "code",
+      
     }),
   ],
   callbacks: {
