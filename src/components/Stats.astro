@@ -1,8 +1,10 @@
 ---
 import type { User } from "@auth/core/types";
-import TopArtists from "@/components/cards/TopArtists.astro"; 
-import TopTracks from "@/components/cards/TopTracks.astro"; 
 import { getToken, getTopData } from "@/pages/api/Spotify.json";
+
+import TopUserCard from "@/components/TopUserCard.astro";
+import Typography from "./Typography.astro";
+import Action from "./Action.astro";
 
 interface Props {
   user: User;
@@ -10,22 +12,41 @@ interface Props {
 
 const { user } = Astro.props as Props;
 
-const accessToken = await getToken();
-// const accessToken = 'BQAmAiiY2JUAw0nsVFolnm4NpK8ImQ5jy06OPoS5JOVjzGWwSw5ShKePVXVBqSZfOJuVeDTT9Orsx-hqggXpwddoz4tGVZo6LKdeZkXrAvg259ClFvZaGxF_8h7yq5prTXbkKQML-Hx2mEG4edhGoWJYS4CMVNBfqNuiuUqdIcYoa1zixyol6xNsKT_wuOZaFelKLpVyY4vfUS1V';
-console.log("Access token: " + accessToken.access_token.toString());
+// const accessToken = await getToken();
+const accessToken =
+  "BQCKpGPiJ-iy-g14zt_nR68VmVYaX3zRhY43szDJbdJK3RLPUyS3-FumZuLPWjJGAAi706coe1JbhBSm6meMaE9sIYXiVbvHW_RY5UWn487eh9HPugB9TY8gvw3dj1hDO8GKefEuwrNLLb8UDs1I7gxf8UamTG1IXlmeFjTg7Xgd1nim7beJXJyEKwb3He2uSCUr9vt_5LlmmdKI";
 
-const topArtists = await getTopData("artists", accessToken.toString());
-console.log("Top artists: " + JSON.stringify(topArtists.items)); 
+const topArtists = await getTopData("artists", "5", "5", "short_term" , accessToken);
+const topTracks = await getTopData("tracks", "5", "5", "short_term" , accessToken);
 ---
 
-<section>
-  <h1 class="text-white">Sesion iniciada correctamente - {user.id}</h1>
-  <button id="logout" class="text-sm font-light text-yellow-300">Cerrar sesión</button>
-  <p class="text-white my-10">
-    {topArtists.items.map(artist => artist.name).join(', ')}
-  </p>
+<section class="m-6 h-full flex flex-col justify-center items-center">
+  <Typography
+    as="h1"
+    variant="big"
+    color="white"
+    class:list={"font-bold text-5xl sm:text-8xl mb-6"}
+  >
+    Welcome {user.name}!
+  </Typography>
 
-  <div class="grid auto-rows-[192px] grid-cols-3 gap-4">
+  <div class="w-full max-w-4xl space-y-4">
+    <TopUserCard title="Top Artists" data={topArtists.items} />
+    <TopUserCard title="Top Tracks" data={topTracks.items} />
+  </div>
+
+  <Action
+    id="logout"
+    class="w-8/12 text-sm md:text-base text-white mt-6"
+    as="button"
+    aria-label="Logout from spotify"
+  >
+    LogOut
+  </Action>
+
+  <!-- TODO: BENTO GRID -->
+
+  <!-- <div class="grid auto-rows-[192px] grid-cols-3 gap-4">
     {[...Array(7)].map((_, i) => (
       <div
         
@@ -34,14 +55,14 @@ console.log("Top artists: " + JSON.stringify(topArtists.items));
         }`}
       ></div>
     ))}
-  </div>
+  </div> -->
 </section>
 
 <script>
-  import { $ } from "@/lib/dom-selector"
+  import { $ } from "@/lib/dom-selector";
 
-const { signOut } = await import("auth-astro/client")
-const $logout = $("#logout")
+  const { signOut } = await import("auth-astro/client");
+  const $logout = $("#logout");
 
-if ($logout) $logout.onclick = () => signOut()
+  if ($logout) $logout.onclick = () => signOut();
 </script>
