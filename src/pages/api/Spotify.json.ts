@@ -20,8 +20,8 @@ export async function getToken() {
 
 
 
-export async function getTopData(type: string, accessToken: string) {
-    const url = `https://api.spotify.com/v1/me/top/${type}?offset=5&limit=5&time_range=short_term`;
+export async function getTopData(type: string, offset: string, limit: string, time_range: string, accessToken: string) {
+    const url = `https://api.spotify.com/v1/me/top/${type}?offset=${offset}&limit=${limit}&time_range=${time_range}`;
   
     const response = await fetch(url, {
       method: 'GET',
